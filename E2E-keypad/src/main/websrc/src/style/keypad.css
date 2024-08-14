@@ -1,0 +1,108 @@
+/*
+.table-style {
+    width: 100%;
+    table-layout: fixed;
+    background-color: #0071AE28;
+}
+*/
+
+
+/* 키패드 이미지에 대한  css 내가 만듬*/
+.keypad-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* 전체 화면 높이 */
+    
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+
+/* 비밀번호 입력시 채워지는 동그라미  css 내가 만듬*/
+.user-input-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #ccc;
+    border: 2px solid #000;
+}
+
+.circle.filled {
+    background-color: #000;
+}
+
+
+
+
+.table-style {
+    margin: 0 auto; /* 테이블을 가로 방향으로 가운데 정렬 */
+    text-align: center; /* 테이블 내부 텍스트 가운데 정렬 */
+}
+
+td {
+    vertical-align: middle; /* 테이블 셀 내부 요소 세로 가운데 정렬 */
+}
+
+img {
+    display: block;
+    margin: 0 auto; /* 이미지 자체를 가운데 정렬 */
+}
+
+.td-style {
+    margin: 0;
+    padding: 0;
+}
+
+.button-style {
+    width: 100%;
+    appearance: none;
+    border-radius: 0;
+    position: relative;
+    height: 63px;
+    margin: 0;
+    padding: 5px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    background: #15b8f026;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+.number-style {
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    margin-left: -25px;
+    top: 5px;
+}
+
+.input-group-style {
+    padding: 50px;
+    text-align: center;
+}
+
+.input-char-style {
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+    background-color: #e5e5e5;
+    border-radius: 50%;
+    margin: 8px;
+}
+
+.input-char-style.active {
+    background-color: #2454c8;
+}
