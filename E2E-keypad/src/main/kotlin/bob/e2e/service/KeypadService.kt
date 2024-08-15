@@ -70,7 +70,6 @@ class KeypadService {
 
         /////디버깅용
         println(hashNumMap)
-        println(keyList)
         println(shuffledKeyList)
         println(hashKeyList)
         println(base64Image)
