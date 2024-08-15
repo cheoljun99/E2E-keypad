@@ -40,11 +40,11 @@ const sendUserInput = async () => {
   try {
       const response = await axios.post('/api/submit', { input: userInput });
       console.log('Input submitted:', response.data);
-      alert('전송 성공!');  // 전송 성공 시 alert 창 띄움
+      alert(userInput);  // 전송 성공 시 alert 창 띄움
       //setUserInput([]);  // 입력 초기화
       window.location.reload();  // 페이지 새로고침
   } catch (error) {
-      alert('전송 실패...');  // 전송 실패 시 alert 창 띄움
+      alert(userInput);  // 전송 실패 시 alert 창 띄움
       console.error('Error submitting input:', error);
       //setUserInput([]);  // 입력 초기화
       window.location.reload();  // 페이지 새로고침
