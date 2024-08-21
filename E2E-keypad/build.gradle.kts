@@ -16,6 +16,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.mariadb.jdbc:mariadb-java-client:3.1.2") // MariaDB JDBC 드라이버 추가
     testImplementation(kotlin("test"))
 }
 
