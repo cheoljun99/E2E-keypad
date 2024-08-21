@@ -2,15 +2,30 @@
 
 "use client";
 
-import {useMemo, useState} from 'react';
+import {useMemo, useState,useEffect} from 'react';
 import axios from "axios";
 import {JSEncrypt} from "jsencrypt";
 
 export default function useSecureKeypad() {
   const [keypad, setKeypad] = useState(null);
+  const [keypadId, setKeypadId] = useState(null);
   const [keyList, setKeyList] = useState([]);
   const [userInput, setUserInput] = useState([]); // 초기 값을 빈 배열로 설정
-  
+  const [publicKey, setPublicKey] = useState(null);
+
+
+  useEffect(() => {
+    fetch('/public_key.pem')
+      .then(response => response.text())
+      .then(data => {
+        setPublicKey(data);
+
+      })
+      .catch(error => {
+        console.error('Error fetching public key:', error);
+      });
+  }, []);
+
 
 
   const getSecureKeypad = async () => {
@@ -19,6 +34,7 @@ export default function useSecureKeypad() {
       console.log(response);
       
       if (response.data && response.data.keypadImage) {
+        setKeypadId(response.data.id);
         setKeyList(response.data.keyList); // 해시값 배열을 상태로 저장
         setKeypad(response.data.keypadImage);
       }
@@ -37,18 +53,37 @@ export default function useSecureKeypad() {
 };
 
 const sendUserInput = async () => {
+  const encrypt = new JSEncrypt();
+  const userData = userInput.join('');
+  encrypt.setPublicKey(publicKey);
+  const encryptedUserData = encrypt.encrypt(userData);
+  console.log(encryptedUserData);
+  
+
   try {
-      const response = await axios.post('/api/submit', { input: userInput });
-      console.log('Input submitted:', response.data);
-      alert(userInput);  // 전송 성공 시 alert 창 띄움
-      //setUserInput([]);  // 입력 초기화
-      window.location.reload();  // 페이지 새로고침
-  } catch (error) {
-      alert(userInput);  // 전송 실패 시 alert 창 띄움
-      console.error('Error submitting input:', error);
-      //setUserInput([]);  // 입력 초기화
-      window.location.reload();  // 페이지 새로고침
-  }
+    // 페이로드 구성
+    const payload = {
+        keypadId: keypadId, // 이전에 받은 키패드 아이디를 사용
+        userInput: encryptedUserData
+    };
+
+    // 서버로 POST 요청 전송
+    const response = await axios.post('/api/submit', payload);
+
+    // 응답 확인
+    if (response.status === 200) {
+        console.log('Data sent successfully');
+        console.log(response);
+        alert(response.data.result);
+        window.location.reload();  // 페이지 새로고침
+    } else {
+        console.error('Failed to send data', response.statusText);
+    }
+
+} catch (error) {
+    console.error('Error sending data', error);
+}
+      
 };
  // 입력이 6개가 되면 전송
  if (userInput && userInput.length === 6) {
